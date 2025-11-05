@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darshan Vaghela - Thumbnail Designer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- 3D Library (Three.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* 3D Canvas Background */
+        #three-js-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.7;
+        }
+        
+        /* Dot Navigation */
+        .dot {
+            width: 12px;
+            height: 12px;
+            border: 2px solid #555;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .dot:hover {
+            background-color: #555;
+        }
+        .dot.active {
+            background-color: #00c6ff;
+            border-color: #00c6ff;
+            transform: scale(1.2);
+        }
+        
+        /* Pro Animation Styles */
+        .image-item {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 1;
+            transform: scale(1);
+        }
+        .image-item.hidden {
+            opacity: 0;
+            transform: scale(0.97);
+        }
+        
+        .text-item {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .text-item.hidden {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 116, 139, 0.3); 
+            border-radius: 1rem; 
+            padding: 2rem; 
+            z-index: 10;
+        }
+
+        /* Styled Form Inputs */
+        .form-input {
+            width: 100%;
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+            color: #e2e8f0; 
+            border-radius: 0.5rem; 
+            padding: 0.75rem 1rem; 
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #00c6ff;
+            box-shadow: 0 0 0 2px rgba(0, 198, 255, 0.5);
+        }
+
+        /* Styled Send Button */
+        .send-button {
+            background-color: #00c6ff;
+            color: #050505;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            transform: scale(1);
+        }
+        .send-button:hover {
+            background-color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 198, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- 1. Header (Minimalist) -->
+    <header class="w-full max-w-7xl mx-auto p-6 md:p-8 z-20">
+        <nav class="flex justify-between items-center">
+            <div>
+                <a href="#" class="text-2xl font-bold text-white">DARSHAN V.</a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#portfolio" class="text-gray-400 hover:text-white transition-colors">Portfolio</a>
+                <a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+            </div>
+            <div>
+                <a href="mailto:darshanvaghela2600@gmail.com" class="border border-gray-700 text-gray-300 py-2 px-4 rounded-lg text-sm hover:bg-gray-800 transition-colors">
+                    Hire Me
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 2. Main Dynamic Section -->
+    <main id="portfolio" class="relative flex-1 w-full max-w-7xl mx-auto flex flex-col justify-center items-center p-6 md:p-8 overflow-hidden">
+        
+        <!-- 3D Canvas Background -->
+        <div id="three-js-canvas"></div>
+
+        <!-- Dynamic Content Grid (z-10 taaki upar rahe) -->
+        <div class="relative w-full grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-10 items-center z-10">
+
+            <!-- Col 1: Dot Navigation -->
+            <div id="dot-navigation-container" class="md:col-span-1 flex md:flex-col justify-center space-x-4 md:space-x-0 md:space-y-6 order-last md:order-first mt-6 md:mt-0">
+                <!-- Dots yahaan JavaScript se add honge -->
+            </div>
+
+            <!-- Col 2: Central Image (Thumbnail) -->
+            <div class="md:col-span-3">
+                <img id="portfolio-image" 
+                     src="https://placehold.co/1280x720/0a0a0a/94a3b8?text=Loading..." 
+                     alt="Portfolio Thumbnail"
+                     class="w-full rounded-xl shadow-2xl border border-gray-900 image-item">
+            </div>
+
+            <!-- Col 3: Text Content -->
+            <div class="md:col-span-1 text-center md:text-left">
+                <h2 id="portfolio-title" class="text-2xl md:text-3xl font-bold text-white mb-4 text-item">
+                    Loading...
+                </h2>
+                <p id="portfolio-description" class="text-gray-400 leading-relaxed text-item">
+                    Loading description...
+                </UP>
+            </div>
+        </div>
+    </main>
+
+    <!-- 3. Footer (CONTACT FORM SECTION) -->
+    <footer id="contact" class="relative w-full max-w-7xl mx-auto p-8 z-10 border-t border-gray-900 mt-16 overflow-hidden">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            
+            <!-- Left Column (Asset & Text) -->
+            <div class="text-center md:text-left">
+                <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                    Let's Work<br>
+                    <span class="text-gradient-blue">Together.</span>
+                </h3>
+                <p class="text-lg text-gray-400 mb-8">
+                    Koi project hai? Ya sirf 'Hi' kehna hai? Niche diye gaye form ko bharein.
+                </p>
+                <!-- 3D Asset Canvas -->
+                <div id="contact-canvas" class="w-full h-64 md:h-80"></div>
+            </div>
+
+            <!-- Right Column (Functional Form) -->
+            <div class="glass-card">
+                <!-- 
+                    FORM ACTION UPDATED! 
+                    Yeh ab aapke diye gaye link par kaam karega.
+                -->
+                <form id="contact-form" 
+                      action="https://formspree.io/f/mdkpqalg" 
+                      method="POST" 
+                      class="space-y-6">
+                    
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Aapka Naam</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="Aapka poora naam" required>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="5" class="form-input" placeholder="Aapka message yahaan..." required></textarea>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="send-button">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+                <!-- Form success/error message -->
+                <p id="form-status" class="text-center mt-4 text-sm"></p>
+            </div>
+            
+        </div>
+        
+        <p class="text-gray-600 mt-24 text-center">&copy; 2024 Darshan Vaghela. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Dynamic Content -->
+    <script>
+        // --- AAPKA DATA ---
+        const portfolioData = [
+            { // 1. DASHU live
+                title: "Dashu is Live (Call of Duty)",
+                description: "Premium gold and black theme for a Call of Duty Mobile stream.",
+                image: "https://lh3.googleusercontent.com/d/1_h3nJXI0NYTQy625EArlWgAqoMJBXMWB" 
+            },
+            { // 2. Live on Minecraft
+                title: "Live on Minecraft",
+                description: "Bright and clean design for a Minecraft live stream.",
+                image: "https://lh3.googleusercontent.com/d/1i_NYDTuvtraMb7lS7Oxaa_C_WMVVrYHK" 
+            },
+            { // 3. New Update (BGMI) - Title Updated
+                title: "New Update (BGMI)",
+                description: "Action-packed thumbnail for a BGMI 'New Update' stream.",
+                image: "https://lh3.googleusercontent.com/d/1dtounN75ItHio81bHhxAW21y8jQQHpPG" 
+            },
+            { // 4. Solo Rank Push (Free Fire)
+                title: "Solo Rank Push (Free Fire)",
+                description: "High-energy thumbnail for Free Fire live stream. (Mobile Design)",
+                image: "https://lh3.googleusercontent.com/d/1mkKVdbFXZmZ6SMGyV4XBZqMZs6LC9hWE" 
+            },
+            { // 5. Motion Grafic Tutorial - Title Updated
+                title: "Motion Grafic Tutorial",
+                description: "Click-worthy design for a motion graphics tutorial.",
+                image: "https://lh3.googleusercontent.com/d/1enPKBEGPxFLCCN6GgLYT0ewAbnHnMTWF" 
+            },
+            { // 6. Create Channel (YouTube Growth)
+                title: "Create Channel (YouTube Growth)",
+                description: "Thumbnail for a 'How to Grow on YouTube' video.",
+                image: "https://lh3.googleusercontent.com/d/1wA8eDe1BS7VDhmLFTdHkOYTTawXa2uUZ" 
+            },
+            { // 7. Editing Apps Tutorial
+                title: "Editing Apps Tutorial",
+                description: "Engaging thumbnail for a video about popular editing apps.",
+                image: "https://lh3.googleusercontent.com/d/17C-3-Nz-BLTtTJPGka28OAmoEM-d8aFZ" 
+            },
+            { // 8. Thumbnail Tutorial (Swapped from 10)
+                title: "Thumbnail Tutorial",
+                description: "Meta-thumbnail for a 'How to Make Thumbnails' tutorial video.",
+                image: "https://lh3.googleusercontent.com/d/1Ke2-XZfkYzZM8xpkz5v6PFUCuMBDuqo4" 
+            },
+            { // 9. Anime Edit (Aine in Zara)
+                title: "Anime Edit (Aine in Zara)",
+                description: "Aesthetic anime banner/thumbnail design.",
+                image: "https://lh3.googleusercontent.com/d/11z6SON3PXtne_vHnJPnfnOGOsSsg9Jqt"
+            },
+            { // 10. Anime AMV (Bheegi Raat) (Swapped from 8)
+                title: "Anime AMV (Bheegi Raat)",
+                description: "Lofi/Aesthetic thumbnail for an Anime Music Video (AMV).",
+                image: "https://lh3.googleusercontent.com/d/17jGf0L8K2HiR3xiw09KxM1kkVe0d_fWd" 
+            }
+        ];
+
+        // --- SCRIPT LOGIC (SLIDER) ---
+        
+        let currentSlideIndex = 0;
+        const imageElement = document.getElementById('portfolio-image');
+        const titleElement = document.getElementById('portfolio-title');
+        const descElement = document.getElementById('portfolio-description');
+        const dotsContainer = document.getElementById('dot-navigation-container');
+
+        function showSlide(index) {
+            if (index < 0 || index >= portfolioData.length || !imageElement) return;
+            const data = portfolioData[index];
+            imageElement.classList.add('hidden');
+            if (titleElement) titleElement.classList.add('hidden');
+            if (descElement) descElement.classList.add('hidden');
+            updateActiveDot(index);
+            setTimeout(() => {
+                imageElement.src = data.image;
+                if (titleElement) titleElement.textContent = data.title;
+                if (descElement) descElement.textContent = data.description;
+                imageElement.classList.remove('hidden');
+                setTimeout(() => {
+                    if (titleElement) titleElement.classList.remove('hidden');
+                    if (descElement) descElement.classList.remove('hidden');
+                }, 100); 
+            }, 300); 
+            currentSlideIndex = index;
+        }
+
+        function buildDots() {
+            if (!dotsContainer) return;
+            dotsContainer.innerHTML = ''; 
+            portfolioData.forEach((item, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                dot.setAttribute('data-index', index);
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function updateActiveDot(index) {
+            if (!dotsContainer) return;
+            const allDots = dotsContainer.querySelectorAll('.dot');
+            allDots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        
+        // --- 3D ANIMATION (Main) ---
+        function initThreeJs() {
+            let scene, camera, renderer, group;
+            const container = document.getElementById('three-js-canvas');
+            if (!container || typeof THREE !== 'object') return;
+
+            try {
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x050505); 
+                const mainElement = document.getElementById('portfolio');
+                camera = new THREE.PerspectiveCamera(75, mainElement.clientWidth / mainElement.clientHeight, 0.1, 1000);
+                camera.position.z = 5;
+
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(mainElement.clientWidth, mainElement.clientHeight);
+                renderer.setPixelRatio(window.devicePixelRatio);
+                container.appendChild(renderer.domElement);
+
+                const ambientLight = new THREE.AmbientLight(0x404040, 2); 
+                scene.add(ambientLight);
+                const pointLight = new THREE.PointLight(0x00c6ff, 3, 100); 
+                pointLight.position.set(5, 5, 5);
+                scene.add(pointLight);
+                const pointLight2 = new THREE.PointLight(0x0072ff, 2, 100); 
+                pointLight2.position.set(-5, -5, 2);
+                scene.add(pointLight2);
+
+                group = new THREE.Group();
+                const geometry = new THREE.CylinderGeometry(0.1, 0.1, 2, 32);
+                const material = new THREE.MeshStandardMaterial({
+                    color: 0x00c6ff, emissive: 0x00c6ff,
+                    emissiveIntensity: 0.5, roughness: 0.4, metalness: 0.1
+                });
+
+                for (let i = 0; i < 20; i++) {
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.position.set((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10);
+                    mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+                    mesh.scale.set(1, Math.random() * 1.5 + 0.5, 1);
+                    group.add(mesh);
+                }
+                scene.add(group);
+
+                function onWindowResize() {
+                    const mainElement = document.getElementById('portfolio');
+                    if (!container || !mainElement) return;
+                    camera.aspect = mainElement.clientWidth / mainElement.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(mainElement.clientWidth, mainElement.clientHeight);
+                    renderer.setPixelRatio(window.devicePixelRatio);
+                }
+                window.addEventListener('resize', onWindowResize);
+
+                function animate() {
+                    if (!renderer || !scene || !camera) return;
+                    requestAnimationFrame(animate);
+                    group.rotation.x += 0.001;
+                    group.rotation.y += 0.002;
+                    renderer.render(scene, camera);
+                }
+                animate();
+            } catch (error) {
+                console.error("Error initializing 3D scene:", error);
+                if (container) container.style.display = 'none';
+            }
+        }
+
+        // --- 3D ANIMATION (Contact Asset) ---
+        function initContactAnimation() {
+            let scene, camera, renderer, mesh;
+            const container = document.getElementById('contact-canvas');
+            if (!container || typeof THREE !== 'object') return;
+
+            try {
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+                camera.position.z = 3;
+
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); 
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setPixelRatio(window.devicePixelRatio);
+                container.appendChild(renderer.domElement);
+
+                // Lights
+                const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+                scene.add(ambientLight);
+                const pointLight = new THREE.PointLight(0x00c6ff, 5, 10);
+                pointLight.position.set(2, 3, 2);
+                scene.add(pointLight);
+
+                // Object: Torus (like '@' sign)
+                const geometry = new THREE.TorusGeometry(1, 0.15, 16, 100);
+                const material = new THREE.MeshStandardMaterial({
+                    color: 0x00c6ff, emissive: 0x00c6ff,
+                    emissiveIntensity: 0.3, roughness: 0.3, metalness: 0.2
+                });
+                mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+
+                function onResize() {
+                    if (!container) return;
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                }
+                window.addEventListener('resize', onResize);
+
+                function animate() {
+                    if (!renderer || !scene || !camera || !mesh) return;
+                    requestAnimationFrame(animate);
+                    mesh.rotation.x += 0.005;
+                    mesh.rotation.y += 0.005;
+                    renderer.render(scene, camera);
+                }
+                animate();
+
+            } catch (error) {
+                console.error("Error initializing Contact 3D scene:", error);
+                if (container) container.style.display = 'none';
+            }
+        }
+       

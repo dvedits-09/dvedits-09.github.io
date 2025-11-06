@@ -114,27 +114,12 @@
 </footer>
 
 <script>
+/* IMPORTANT:
+   - Niche sab URLs Google Drive thumbnail endpoints hain.
+   - Ensure Drive sharing = “Anyone with the link”, tabhi images dikhenge.
+*/
 
-
-// Final dataset: pehle wale + naye wale
-const portfolioData = [...previousData, ...newData];
-
-// Slider logic
-let currentSlideIndex = 0;
-const imageElement = document.getElementById('portfolio-image');
-const titleElement = document.getElementById('portfolio-title');
-const descElement = document.getElementById('portfolio-description');
-const dotsContainer = document.getElementById('dot-navigation-container');
-
-function showSlide(index){
-  if(index<0||index>=portfolioData.length||!imageElement) return;
-  const data=portfolioData[index];
-  imageElement.classList.add('hidden');
-  titleElement.classList.add('hidden');
-  descElement.classList.add('hidden');
-  updateActiveDot(index);
-  setTimeout(()=>{
-    imageElement.src=data.im/* Purane 10 (order lock) */
+/* Purane 10 (order lock) */
 const previousData = [
   { title:"Dashu is Live (Call of Duty)", description:"Premium gold/black stream art.", image:"https://drive.google.com/thumbnail?id=1_h3nJXI0NYTQy625EArlWgAqoMJBXMWB&sz=w1280" },
   { title:"Live on Minecraft", description:"Bright and clean design.", image:"https://drive.google.com/thumbnail?id=1i_NYDTuvtraMb7lS7Oxaa_C_WMVVrYHK&sz=w1280" },
@@ -163,7 +148,23 @@ const portfolioData = [...previousData, ...newData];
 document.addEventListener('DOMContentLoaded', ()=>{
   buildDots();
   showSlide(0);
-});age;
+});
+// Slider logic
+let currentSlideIndex = 0;
+const imageElement = document.getElementById('portfolio-image');
+const titleElement = document.getElementById('portfolio-title');
+const descElement = document.getElementById('portfolio-description');
+const dotsContainer = document.getElementById('dot-navigation-container');
+
+function showSlide(index){
+  if(index<0||index>=portfolioData.length||!imageElement) return;
+  const data=portfolioData[index];
+  imageElement.classList.add('hidden');
+  titleElement.classList.add('hidden');
+  descElement.classList.add('hidden');
+  updateActiveDot(index);
+  setTimeout(()=>{
+    imageElement.src=data.image;
     titleElement.textContent=data.title;
     descElement.textContent=data.description;
     imageElement.classList.remove('hidden');

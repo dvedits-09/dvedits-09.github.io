@@ -114,28 +114,7 @@
 </footer>
 
 <script>
-/* IMPORTANT:
-   - Niche sab URLs Google Drive thumbnail endpoints hain.
-   - Ensure Drive sharing = “Anyone with the link”, tabhi images dikhenge.
-*/
 
-// Pahle ke thumbnails (example placeholders — yahan apne purane 6–8 add kar sakte ho)
-const previousData = [
-  { title:"Live on Minecraft", description:"Bright and clean design.", image:"https://drive.google.com/thumbnail?id=1i_NYDTuvtraMb7lS7Oxaa_C_WMVVrYHK&sz=w1280" },
-  { title:"New Update (BGMI)", description:"Action-packed update art.", image:"https://drive.google.com/thumbnail?id=1dtounN75ItHio81bHhxAW21y8jQQHpPG&sz=w1280" },
-  { title:"Solo Rank Push", description:"Free Fire live stream art.", image:"https://drive.google.com/thumbnail?id=1mkKVdbFXZmZ6SMGyV4XBZqMZs6LC9hWE&sz=w1280" },
-  { title:"Motion Graphic", description:"Tutorial thumbnail.", image:"https://drive.google.com/thumbnail?id=1enPKBEGPxFLCCN6GgLYT0ewAbnHnMTWF&sz=w1280" },
-  { title:"Create Channel", description:"YouTube growth tips.", image:"https://drive.google.com/thumbnail?id=1wA8eDe1BS7VDhmLFTdHkOYTTawXa2uUZ&sz=w1280" },
-  { title:"Editing Apps", description:"Popular editing apps.", image:"https://drive.google.com/thumbnail?id=17C-3-Nz-BLTtTJPGka28OAmoEM-d8aFZ&sz=w1280" }
-];
-
-// Abhi diye hue 4 thumbnails
-const newData = [
-  { title:"Gaming Highlight 1", description:"Custom thumbnail design.", image:"https://drive.google.com/thumbnail?id=1OEmaDeUkD5VXv0zMMdC3294pDOjh-Oq1&sz=w1280" },
-  { title:"Gaming Highlight 2", description:"Clean, bold layout.", image:"https://drive.google.com/thumbnail?id=1QMvIPtpzJ-N7GnYIc5RWCW0o2nkAqfp1&sz=w1280" },
-  { title:"Action Stream", description:"High-contrast click style.", image:"https://drive.google.com/thumbnail?id=1sL4uLwkk12QxFZmUv7n2Yu0KMVnbfef9&sz=w1280" },
-  { title:"Update Reveal", description:"Update-themed promo.", image:"https://drive.google.com/thumbnail?id=1TAwGjcjQ5-nmhTMa58bBrfrYTr-54lhJ&sz=w1280" }
-];
 
 // Final dataset: pehle wale + naye wale
 const portfolioData = [...previousData, ...newData];
@@ -155,7 +134,36 @@ function showSlide(index){
   descElement.classList.add('hidden');
   updateActiveDot(index);
   setTimeout(()=>{
-    imageElement.src=data.image;
+    imageElement.src=data.im/* Purane 10 (order lock) */
+const previousData = [
+  { title:"Dashu is Live (Call of Duty)", description:"Premium gold/black stream art.", image:"https://drive.google.com/thumbnail?id=1_h3nJXI0NYTQy625EArlWgAqoMJBXMWB&sz=w1280" },
+  { title:"Live on Minecraft", description:"Bright and clean design.", image:"https://drive.google.com/thumbnail?id=1i_NYDTuvtraMb7lS7Oxaa_C_WMVVrYHK&sz=w1280" },
+  { title:"New Update (BGMI)", description:"Action-packed update art.", image:"https://drive.google.com/thumbnail?id=1dtounN75ItHio81bHhxAW21y8jQQHpPG&sz=w1280" },
+  { title:"Solo Rank Push", description:"Free Fire live stream art.", image:"https://drive.google.com/thumbnail?id=1mkKVdbFXZmZ6SMGyV4XBZqMZs6LC9hWE&sz=w1280" },
+  { title:"Motion Graphic", description:"Tutorial thumbnail.", image:"https://drive.google.com/thumbnail?id=1enPKBEGPxFLCCN6GgLYT0ewAbnHnMTWF&sz=w1280" },
+  { title:"Create Channel", description:"YouTube growth tips.", image:"https://drive.google.com/thumbnail?id=1wA8eDe1BS7VDhmLFTdHkOYTTawXa2uUZ&sz=w1280" },
+  { title:"Editing Apps", description:"Popular editing apps.", image:"https://drive.google.com/thumbnail?id=17C-3-Nz-BLTtTJPGka28OAmoEM-d8aFZ&sz=w1280" },
+  { title:"Thumbnail Tutorial", description:"Meta tutorial thumbnail.", image:"https://drive.google.com/thumbnail?id=1Ke2-XZfkYzZM8xpkz5v6PFUCuMBDuqo4&sz=w1280" },
+  { title:"Anime Edit (Aine in Zara)", description:"Aesthetic anime banner.", image:"https://drive.google.com/thumbnail?id=11z6SON3PXtne_vHnJPnfnOGOsSsg9Jqt&sz=w1280" },
+  { title:"Anime AMV (Bheegi Raat)", description:"Lofi/Aesthetic AMV art.", image:"https://drive.google.com/thumbnail?id=17jGf0L8K2HiR3xiw09KxM1kkVe0d_fWd&sz=w1280" }
+];
+
+/* Naye 4 (aapke IDs) */
+const newData = [
+  { title:"Gaming Highlight 1", description:"Custom thumbnail design.", image:"https://drive.google.com/thumbnail?id=1OEmaDeUkD5VXv0zMMdC3294pDOjh-Oq1&sz=w1280" },
+  { title:"Gaming Highlight 2", description:"Clean, bold layout.", image:"https://drive.google.com/thumbnail?id=1QMvIPtpzJ-N7GnYIc5RWCW0o2nkAqfp1&sz=w1280" },
+  { title:"Action Stream", description:"High-contrast click style.", image:"https://drive.google.com/thumbnail?id=1sL4uLwkk12QxFZmUv7n2Yu0KMVnbfef9&sz=w1280" },
+  { title:"Update Reveal", description:"Update-themed promo.", image:"https://drive.google.com/thumbnail?id=1TAwGjcjQ5-nmhTMa58bBrfrYTr-54lhJ&sz=w1280" }
+];
+
+/* FINAL 14 */
+const portfolioData = [...previousData, ...newData];
+
+/* Init (no stuck Loading) */
+document.addEventListener('DOMContentLoaded', ()=>{
+  buildDots();
+  showSlide(0);
+});age;
     titleElement.textContent=data.title;
     descElement.textContent=data.description;
     imageElement.classList.remove('hidden');

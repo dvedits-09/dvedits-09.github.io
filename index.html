@@ -9,37 +9,54 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
   <style>
+    :root{color-scheme:dark}
     body{font-family:'Inter',sans-serif;background:#050505;color:#e0e0e0;overflow-x:hidden}
     #portfolio{position:relative;min-height:100svh}
     .dot{width:12px;height:12px;border:2px solid #555;border-radius:50%;cursor:pointer;transition:.3s}
     .dot:hover{background:#555}
     .dot.active{background:#00c6ff;border-color:#00c6ff;transform:scale(1.2)}
-    .image-item{transition:opacity .3s,transform .3s}
+    .image-item{transition:opacity .28s,transform .28s}
     .image-item.hidden{opacity:0;transform:scale(.97)}
-    .text-item{transition:opacity .3s,transform .3s}
+    .text-item{transition:opacity .28s,transform .28s}
     .text-item.hidden{opacity:0;transform:translateY(10px)}
     .glass-card{background:rgba(15,23,42,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(100,116,139,.3);border-radius:1rem;padding:2rem;z-index:10}
     .form-input{width:100%;background:#1e293b;border:1px solid #334155;color:#e2e8f0;border-radius:.5rem;padding:.75rem 1rem;transition:.3s}
     .form-input:focus{outline:0;border-color:#00c6ff;box-shadow:0 0 0 2px rgba(0,198,255,.5)}
-    .send-button{background:#00c6ff;color:#050505;font-weight:700;padding:.75rem 1.5rem;border-radius:.5rem;transition:.3s;transform:scale(1)}
-    .send-button:hover{background:#fff;box-shadow:0 4px 20px rgba(0,198,255,.3);transform:scale(1.05)}
+    .btn{background:#00c6ff;color:#050505;font-weight:700;padding:.75rem 1.5rem;border-radius:.5rem;transition:.3s}
+    .btn:hover{background:#fff;box-shadow:0 4px 20px rgba(0,198,255,.3)}
+    /* Cinematic logo intro */
+    #logo-intro{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:#050505}
+    #logo-wrap{opacity:0;transform:scale(.92);animation:introf 2.6s ease forwards}
+    @keyframes introf{
+      0%{opacity:0;transform:scale(.92)}
+      20%{opacity:1;transform:scale(1)}
+      70%{opacity:1;transform:scale(1)}
+      100%{opacity:0;transform:scale(1.04)}
+    }
+    /* Hide borders, cinematic mask */
+    .cinematic{border-radius:24px;box-shadow:0 0 0 0 transparent}
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-<!-- ===== LOGO INTRO (replace with video block if you upload logo-intro.mp4 to your repo's assets folder) ===== -->
-<section id="logo-intro" class="w-full flex flex-col items-center justify-center" style="min-height:40svh;background:#050505">
-  <img src="https://drive.google.com/thumbnail?id=1AXZMy0se2UiZygMED1jNSBstf0o5VCG_&sz=w384"
-       alt="DV Logo" style="width:140px;height:140px;border-radius:22px;box-shadow:0 10px 24px #0008;object-fit:cover" />
-  <p style="font-weight:700;margin-top:12px;font-size:22px;letter-spacing:1px;opacity:.89">DARSHAN VAGHELA</p>
+<!-- Cinematic LOGO INTRO (borderless, fades out automatically) -->
+<section id="logo-intro" aria-label="Intro">
+  <div id="logo-wrap" class="flex flex-col items-center gap-3">
+    <img
+      src="https://drive.google.com/thumbnail?id=1AXZMy0se2UiZygMED1jNSBstf0o5VCG_&sz=w512"
+      alt="DV Logo"
+      class="cinematic"
+      style="width:168px;height:168px;object-fit:cover"
+    />
+    <p style="font-weight:800;letter-spacing:2px">DARSHAN VAGHELA</p>
+  </div>
 </section>
 <script>
-  // Remove logo intro after 2.7s and show site
-  setTimeout(()=>{document.getElementById('logo-intro').style.display='none';},2700);
+  // Auto remove intro after animation
+  setTimeout(()=>{ const s=document.getElementById('logo-intro'); if(s) s.remove(); }, 2600);
 </script>
-<!-- ===== END LOGO INTRO ===== -->
 
-<header class="w-full max-w-7xl mx-auto p-6 md:p-8 z-20">
+<header class="w-full max-w-7xl mx-auto p-6 md:p-8">
   <nav class="flex justify-between items-center">
     <a class="text-2xl font-bold text-white">DARSHAN V.</a>
     <div class="hidden md:flex items-center space-x-8">
@@ -52,8 +69,8 @@
   </nav>
 </header>
 
-<main id="portfolio" class="relative flex-1 w-full max-w-7xl mx-auto flex flex-col justify-center items-center p-6 md:p-8">
-  <div class="relative w-full grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-10 items-center z-10">
+<main id="portfolio" class="flex-1 w-full max-w-7xl mx-auto flex flex-col justify-center items-center p-6 md:p-8">
+  <div class="w-full grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-10 items-center">
     <div id="dot-navigation-container" class="md:col-span-1 flex md:flex-col justify-center space-x-4 md:space-x-0 md:space-y-6 order-last md:order-first mt-6 md:mt-0"></div>
     <div class="md:col-span-3">
       <img id="portfolio-image" src="https://placehold.co/1280x720/0a0a0a/94a3b8?text=Loading..." alt="Portfolio Thumbnail" class="w-full rounded-xl shadow-2xl border border-gray-900 image-item">
@@ -65,12 +82,12 @@
   </div>
 </main>
 
-<footer id="contact" class="relative w-full max-w-7xl mx-auto p-8 z-10 border-t border-gray-900 mt-16 overflow-hidden">
+<footer id="contact" class="w-full max-w-7xl mx-auto p-8 border-t border-gray-900 mt-16">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
     <div class="text-center md:text-left">
       <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">Let's Work<br><span class="text-sky-400">Together.</span></h3>
       <p class="text-lg text-gray-400 mb-8">Koi project hai? Ya sirf 'Hi' kehna hai? Niche diye gaye form ko bharein.</p>
-      <div style="background:#2224;border-radius:14px;min-height:90px"></div>
+      <div style="background:#1a1f2a;border-radius:14px;min-height:90px"></div>
     </div>
     <div class="glass-card">
       <form id="contact-form" action="https://formspree.io/f/mdkpqalg" method="POST" class="space-y-6">
@@ -87,7 +104,7 @@
           <textarea id="message" name="message" rows="5" class="form-input" placeholder="Aapka message yahaan..." required></textarea>
         </div>
         <div class="text-center">
-          <button type="submit" class="send-button">Send Message</button>
+          <button type="submit" class="btn">Send Message</button>
         </div>
       </form>
       <p id="form-status" class="text-center mt-4 text-sm"></p>
@@ -97,19 +114,41 @@
 </footer>
 
 <script>
-const portfolioData = [
+/* IMPORTANT:
+   - Niche sab URLs Google Drive thumbnail endpoints hain.
+   - Ensure Drive sharing = “Anyone with the link”, tabhi images dikhenge.
+*/
+
+// Pahle ke thumbnails (example placeholders — yahan apne purane 6–8 add kar sakte ho)
+const previousData = [
+  { title:"Live on Minecraft", description:"Bright and clean design.", image:"https://drive.google.com/thumbnail?id=1i_NYDTuvtraMb7lS7Oxaa_C_WMVVrYHK&sz=w1280" },
+  { title:"New Update (BGMI)", description:"Action-packed update art.", image:"https://drive.google.com/thumbnail?id=1dtounN75ItHio81bHhxAW21y8jQQHpPG&sz=w1280" },
+  { title:"Solo Rank Push", description:"Free Fire live stream art.", image:"https://drive.google.com/thumbnail?id=1mkKVdbFXZmZ6SMGyV4XBZqMZs6LC9hWE&sz=w1280" },
+  { title:"Motion Graphic", description:"Tutorial thumbnail.", image:"https://drive.google.com/thumbnail?id=1enPKBEGPxFLCCN6GgLYT0ewAbnHnMTWF&sz=w1280" },
+  { title:"Create Channel", description:"YouTube growth tips.", image:"https://drive.google.com/thumbnail?id=1wA8eDe1BS7VDhmLFTdHkOYTTawXa2uUZ&sz=w1280" },
+  { title:"Editing Apps", description:"Popular editing apps.", image:"https://drive.google.com/thumbnail?id=17C-3-Nz-BLTtTJPGka28OAmoEM-d8aFZ&sz=w1280" }
+];
+
+// Abhi diye hue 4 thumbnails
+const newData = [
   { title:"Gaming Highlight 1", description:"Custom thumbnail design.", image:"https://drive.google.com/thumbnail?id=1OEmaDeUkD5VXv0zMMdC3294pDOjh-Oq1&sz=w1280" },
   { title:"Gaming Highlight 2", description:"Clean, bold layout.", image:"https://drive.google.com/thumbnail?id=1QMvIPtpzJ-N7GnYIc5RWCW0o2nkAqfp1&sz=w1280" },
-  { title:"Action Stream", description:"High-contrast clickbait style.", image:"https://drive.google.com/thumbnail?id=1sL4uLwkk12QxFZmUv7n2Yu0KMVnbfef9&sz=w1280" },
-  { title:"Update Reveal", description:"Update-themed promo design.", image:"https://drive.google.com/thumbnail?id=1TAwGjcjQ5-nmhTMa58bBrfrYTr-54lhJ&sz=w1280" }
+  { title:"Action Stream", description:"High-contrast click style.", image:"https://drive.google.com/thumbnail?id=1sL4uLwkk12QxFZmUv7n2Yu0KMVnbfef9&sz=w1280" },
+  { title:"Update Reveal", description:"Update-themed promo.", image:"https://drive.google.com/thumbnail?id=1TAwGjcjQ5-nmhTMa58bBrfrYTr-54lhJ&sz=w1280" }
 ];
+
+// Final dataset: pehle wale + naye wale
+const portfolioData = [...previousData, ...newData];
+
+// Slider logic
 let currentSlideIndex = 0;
 const imageElement = document.getElementById('portfolio-image');
 const titleElement = document.getElementById('portfolio-title');
 const descElement = document.getElementById('portfolio-description');
 const dotsContainer = document.getElementById('dot-navigation-container');
+
 function showSlide(index){
-  if(index<0||index>=portfolioData.length||!imageElement)return;
+  if(index<0||index>=portfolioData.length||!imageElement) return;
   const data=portfolioData[index];
   imageElement.classList.add('hidden');
   titleElement.classList.add('hidden');
@@ -127,6 +166,7 @@ function showSlide(index){
   },200);
   currentSlideIndex=index;
 }
+
 function buildDots(){
   dotsContainer.innerHTML='';
   portfolioData.forEach((_,i)=>{
@@ -136,10 +176,13 @@ function buildDots(){
     dotsContainer.appendChild(dot);
   });
 }
+
 function updateActiveDot(i){
   const all=dotsContainer.querySelectorAll('.dot');
-  all.forEach((d,idx)=>d.classList.toggle('active',idx===i));
+  all.forEach((d,idx)=>d.classList.toggle('active', idx===i));
 }
+
+// Force init after DOM ready, so “Loading…” never sticks
 document.addEventListener('DOMContentLoaded',()=>{
   buildDots();
   showSlide(0);

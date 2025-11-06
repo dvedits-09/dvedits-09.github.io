@@ -4,19 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Darshan Vaghela - Thumbnail Designer</title>
-
   <script src="https://cdn.tailwindcss.com"></script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
   <style>
     body{font-family:'Inter',sans-serif;background:#050505;color:#e0e0e0;overflow-x:hidden}
     #portfolio{position:relative;min-height:100svh}
-    #three-js-canvas{position:absolute;inset:0;opacity:.7;z-index:0;pointer-events:none}
     .dot{width:12px;height:12px;border:2px solid #555;border-radius:50%;cursor:pointer;transition:.3s}
     .dot:hover{background:#555}
     .dot.active{background:#00c6ff;border-color:#00c6ff;transform:scale(1.2)}
@@ -33,173 +27,123 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <header class="w-full max-w-7xl mx-auto p-6 md:p-8 z-20">
-    <nav class="flex justify-between items-center">
-      <a class="text-2xl font-bold text-white">DARSHAN V.</a>
-      <div class="hidden md:flex items-center space-x-8">
-        <a href="#portfolio" class="text-gray-400 hover:text-white">Portfolio</a>
-        <a href="#contact" class="text-gray-400 hover:text-white">Contact</a>
-      </div>
-      <div>
-        <a href="mailto:darshanvaghela2600@gmail.com" class="border border-gray-700 text-gray-300 py-2 px-4 rounded-lg text-sm hover:bg-gray-800">Hire Me</a>
-      </div>
-    </nav>
-  </header>
+<!-- ===== LOGO INTRO (replace with video block if you upload logo-intro.mp4 to your repo's assets folder) ===== -->
+<section id="logo-intro" class="w-full flex flex-col items-center justify-center" style="min-height:40svh;background:#050505">
+  <img src="https://drive.google.com/thumbnail?id=1AXZMy0se2UiZygMED1jNSBstf0o5VCG_&sz=w384"
+       alt="DV Logo" style="width:140px;height:140px;border-radius:22px;box-shadow:0 10px 24px #0008;object-fit:cover" />
+  <p style="font-weight:700;margin-top:12px;font-size:22px;letter-spacing:1px;opacity:.89">DARSHAN VAGHELA</p>
+</section>
+<script>
+  // Remove logo intro after 2.7s and show site
+  setTimeout(()=>{document.getElementById('logo-intro').style.display='none';},2700);
+</script>
+<!-- ===== END LOGO INTRO ===== -->
 
-  <main id="portfolio" class="relative flex-1 w-full max-w-7xl mx-auto flex flex-col justify-center items-center p-6 md:p-8 overflow-hidden">
-    <div id="three-js-canvas"></div>
-
-    <div class="relative w-full grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-10 items-center z-10">
-      <div id="dot-navigation-container" class="md:col-span-1 flex md:flex-col justify-center space-x-4 md:space-x-0 md:space-y-6 order-last md:order-first mt-6 md:mt-0"></div>
-
-      <div class="md:col-span-3">
-        <img id="portfolio-image" src="https://placehold.co/1280x720/0a0a0a/94a3b8?text=Loading..." alt="Portfolio Thumbnail" class="w-full rounded-xl shadow-2xl border border-gray-900 image-item">
-      </div>
-
-      <div class="md:col-span-1 text-center md:text-left">
-        <h2 id="portfolio-title" class="text-2xl md:text-3xl font-bold text-white mb-4 text-item">Loading...</h2>
-        <p id="portfolio-description" class="text-gray-400 leading-relaxed text-item">Loading description...</p>
-      </div>
+<header class="w-full max-w-7xl mx-auto p-6 md:p-8 z-20">
+  <nav class="flex justify-between items-center">
+    <a class="text-2xl font-bold text-white">DARSHAN V.</a>
+    <div class="hidden md:flex items-center space-x-8">
+      <a href="#portfolio" class="text-gray-400 hover:text-white">Portfolio</a>
+      <a href="#contact" class="text-gray-400 hover:text-white">Contact</a>
     </div>
-  </main>
-
-  <footer id="contact" class="relative w-full max-w-7xl mx-auto p-8 z-10 border-t border-gray-900 mt-16 overflow-hidden">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-      <div class="text-center md:text-left">
-        <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">Let's Work<br><span class="text-sky-400">Together.</span></h3>
-        <p class="text-lg text-gray-400 mb-8">Koi project hai? Ya sirf 'Hi' kehna hai? Niche diye gaye form ko bharein.</p>
-        <div id="contact-canvas" class="w-full h-64 md:h-80"></div>
-      </div>
-
-      <div class="glass-card">
-        <form id="contact-form" action="https://formspree.io/f/mdkpqalg" method="POST" class="space-y-6">
-          <div>
-            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Aapka Naam</label>
-            <input type="text" id="name" name="name" class="form-input" placeholder="Aapka poora naam" required>
-          </div>
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-            <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required>
-          </div>
-          <div>
-            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-            <textarea id="message" name="message" rows="5" class="form-input" placeholder="Aapka message yahaan..." required></textarea>
-          </div>
-          <div class="text-center">
-            <button type="submit" class="send-button">Send Message</button>
-          </div>
-        </form>
-        <p id="form-status" class="text-center mt-4 text-sm"></p>
-      </div>
+    <div>
+      <a href="mailto:darshanvaghela2600@gmail.com" class="border border-gray-700 text-gray-300 py-2 px-4 rounded-lg text-sm hover:bg-gray-800">Hire Me</a>
     </div>
-    <p class="text-gray-600 mt-24 text-center">&copy; 2025 Darshan Vaghela. All rights reserved.</p>
-  </footer>
+  </nav>
+</header>
 
-  <script>
-    // Replace FILE_IDs only if you have different ones and ensure Drive sharing = Anyone with link
-    const portfolioData = [
-      { title:"Dashu is Live (Call of Duty)", description:"Premium gold and black theme for a Call of Duty Mobile stream.", image:"https://drive.google.com/thumbnail?id=1_h3nJXI0NYTQy625EArlWgAqoMJBXMWB&sz=w1280" },
-      { title:"Live on Minecraft", description:"Bright and clean design for a Minecraft live stream.", image:"https://drive.google.com/thumbnail?id=1i_NYDTuvtraMb7lS7Oxaa_C_WMVVrYHK&sz=w1280" },
-      { title:"New Update (BGMI)", description:"Action-packed thumbnail for a BGMI 'New Update' stream.", image:"https://drive.google.com/thumbnail?id=1dtounN75ItHio81bHhxAW21y8jQQHpPG&sz=w1280" },
-      { title:"Solo Rank Push (Free Fire)", description:"High-energy thumbnail for Free Fire live stream. (Mobile Design)", image:"https://drive.google.com/thumbnail?id=1mkKVdbFXZmZ6SMGyV4XBZqMZs6LC9hWE&sz=w1280" },
-      { title:"Motion Graphic Tutorial", description:"Click-worthy design for a motion graphics tutorial.", image:"https://drive.google.com/thumbnail?id=1enPKBEGPxFLCCN6GgLYT0ewAbnHnMTWF&sz=w1280" },
-      { title:"Create Channel (YouTube Growth)", description:"Thumbnail for a 'How to Grow on YouTube' video.", image:"https://drive.google.com/thumbnail?id=1wA8eDe1BS7VDhmLFTdHkOYTTawXa2uUZ&sz=w1280" },
-      { title:"Editing Apps Tutorial", description:"Engaging thumbnail for a video about popular editing apps.", image:"https://drive.google.com/thumbnail?id=17C-3-Nz-BLTtTJPGka28OAmoEM-d8aFZ&sz=w1280" },
-      { title:"Thumbnail Tutorial", description:"Meta-thumbnail for a 'How to Make Thumbnails' tutorial video.", image:"https://drive.google.com/thumbnail?id=1Ke2-XZfkYzZM8xpkz5v6PFUCuMBDuqo4&sz=w1280" },
-      { title:"Anime Edit (Aine in Zara)", description:"Aesthetic anime banner/thumbnail design.", image:"https://drive.google.com/thumbnail?id=11z6SON3PXtne_vHnJPnfnOGOsSsg9Jqt&sz=w1280" },
-      { title:"Anime AMV (Bheegi Raat)", description:"Lofi/Aesthetic thumbnail for an Anime Music Video (AMV).", image:"https://drive.google.com/thumbnail?id=17jGf0L8K2HiR3xiw09KxM1kkVe0d_fWd&sz=w1280" }
-    ];
+<main id="portfolio" class="relative flex-1 w-full max-w-7xl mx-auto flex flex-col justify-center items-center p-6 md:p-8">
+  <div class="relative w-full grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-10 items-center z-10">
+    <div id="dot-navigation-container" class="md:col-span-1 flex md:flex-col justify-center space-x-4 md:space-x-0 md:space-y-6 order-last md:order-first mt-6 md:mt-0"></div>
+    <div class="md:col-span-3">
+      <img id="portfolio-image" src="https://placehold.co/1280x720/0a0a0a/94a3b8?text=Loading..." alt="Portfolio Thumbnail" class="w-full rounded-xl shadow-2xl border border-gray-900 image-item">
+    </div>
+    <div class="md:col-span-1 text-center md:text-left">
+      <h2 id="portfolio-title" class="text-2xl md:text-3xl font-bold text-white mb-4 text-item">Loading...</h2>
+      <p id="portfolio-description" class="text-gray-400 leading-relaxed text-item">Loading description...</p>
+    </div>
+  </div>
+</main>
 
-    let currentSlideIndex = 0;
-    const imageElement = document.getElementById('portfolio-image');
-    const titleElement = document.getElementById('portfolio-title');
-    const descElement = document.getElementById('portfolio-description');
-    const dotsContainer = document.getElementById('dot-navigation-container');
+<footer id="contact" class="relative w-full max-w-7xl mx-auto p-8 z-10 border-t border-gray-900 mt-16 overflow-hidden">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+    <div class="text-center md:text-left">
+      <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">Let's Work<br><span class="text-sky-400">Together.</span></h3>
+      <p class="text-lg text-gray-400 mb-8">Koi project hai? Ya sirf 'Hi' kehna hai? Niche diye gaye form ko bharein.</p>
+      <div style="background:#2224;border-radius:14px;min-height:90px"></div>
+    </div>
+    <div class="glass-card">
+      <form id="contact-form" action="https://formspree.io/f/mdkpqalg" method="POST" class="space-y-6">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Aapka Naam</label>
+          <input type="text" id="name" name="name" class="form-input" placeholder="Aapka poora naam" required>
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required>
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+          <textarea id="message" name="message" rows="5" class="form-input" placeholder="Aapka message yahaan..." required></textarea>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="send-button">Send Message</button>
+        </div>
+      </form>
+      <p id="form-status" class="text-center mt-4 text-sm"></p>
+    </div>
+  </div>
+  <p class="text-gray-600 mt-24 text-center">&copy; 2025 Darshan Vaghela. All rights reserved.</p>
+</footer>
 
-    function showSlide(index){
-      if(index<0 || index>=portfolioData.length || !imageElement) return;
-      const data = portfolioData[index];
-      imageElement.classList.add('hidden');
-      titleElement.classList.add('hidden');
-      descElement.classList.add('hidden');
-      updateActiveDot(index);
-      setTimeout(()=>{
-        imageElement.src = data.image;
-        titleElement.textContent = data.title;
-        descElement.textContent = data.description;
-        imageElement.classList.remove('hidden');
-        setTimeout(()=>{
-          titleElement.classList.remove('hidden');
-          descElement.classList.remove('hidden');
-        },100);
-      },300);
-      currentSlideIndex = index;
-    }
-
-    function buildDots(){
-      dotsContainer.innerHTML = '';
-      portfolioData.forEach((_,i)=>{
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-        dot.onclick = ()=>showSlide(i);
-        dotsContainer.appendChild(dot);
-      });
-    }
-
-    function updateActiveDot(i){
-      const all = dotsContainer.querySelectorAll('.dot');
-      all.forEach((d,idx)=>d.classList.toggle('active', idx===i));
-    }
-
-    function initThreeJs(){
-      const container=document.getElementById('three-js-canvas');
-      const mainEl=document.getElementById('portfolio');
-      if(!container||!mainEl||typeof THREE!=='object') return;
-      const scene=new THREE.Scene();
-      scene.background=new THREE.Color(0x050505);
-      const camera=new THREE.PerspectiveCamera(75, mainEl.clientWidth/mainEl.clientHeight, .1, 1000);
-      camera.position.z=5;
-      const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-      renderer.setSize(mainEl.clientWidth, mainEl.clientHeight);
-      renderer.setPixelRatio(window.devicePixelRatio);
-      container.appendChild(renderer.domElement);
-      scene.add(new THREE.AmbientLight(0x404040,2));
-      const p1=new THREE.PointLight(0x00c6ff,3,100); p1.position.set(5,5,5); scene.add(p1);
-      const p2=new THREE.PointLight(0x0072ff,2,100); p2.position.set(-5,-5,2); scene.add(p2);
-      const group=new THREE.Group();
-      const geo=new THREE.CylinderGeometry(.1,.1,2,32);
-      const mat=new THREE.MeshStandardMaterial({color:0x00c6ff,emissive:0x00c6ff,emissiveIntensity:.5,roughness:.4,metalness:.1});
-      for(let i=0;i<20;i++){const m=new THREE.Mesh(geo,mat);m.position.set((Math.random()-.5)*10,(Math.random()-.5)*10,(Math.random()-.5)*10);m.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,Math.random()*Math.PI);m.scale.set(1,Math.random()*1.5+.5,1);group.add(m);}
-      scene.add(group);
-      window.addEventListener('resize',()=>{camera.aspect=mainEl.clientWidth/mainEl.clientHeight;camera.updateProjectionMatrix();renderer.setSize(mainEl.clientWidth,mainEl.clientHeight);});
-      (function animate(){requestAnimationFrame(animate);group.rotation.x+=.001;group.rotation.y+=.002;renderer.render(scene,camera);})();
-    }
-
-    function initContactAnimation(){
-      const container=document.getElementById('contact-canvas');
-      if(!container||typeof THREE!=='object') return;
-      const scene=new THREE.Scene();
-      const camera=new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight,.1,1000);
-      camera.position.z=3;
-      const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-      renderer.setSize(container.clientWidth,container.clientHeight);
-      renderer.setPixelRatio(window.devicePixelRatio);
-      container.appendChild(renderer.domElement);
-      scene.add(new THREE.AmbientLight(0xffffff,1));
-      const pl=new THREE.PointLight(0x00c6ff,5,10);pl.position.set(2,3,2);scene.add(pl);
-      const geo=new THREE.TorusGeometry(1,.15,16,100);
-      const mat=new THREE.MeshStandardMaterial({color:0x00c6ff,emissive:0x00c6ff,emissiveIntensity:.3,roughness:.3,metalness:.2});
-      const mesh=new THREE.Mesh(geo,mat);scene.add(mesh);
-      window.addEventListener('resize',()=>{camera.aspect=container.clientWidth/container.clientHeight;camera.updateProjectionMatrix();renderer.setSize(container.clientWidth,container.clientHeight);});
-      (function animate(){requestAnimationFrame(animate);mesh.rotation.x+=.005;mesh.rotation.y+=.005;renderer.render(scene,camera);})();
-    }
-
-    document.addEventListener('DOMContentLoaded', ()=>{
-      buildDots();
-      showSlide(0);
-      initThreeJs();
-      initContactAnimation();
-    });
-  </script>
+<script>
+const portfolioData = [
+  { title:"Gaming Highlight 1", description:"Custom thumbnail design.", image:"https://drive.google.com/thumbnail?id=1OEmaDeUkD5VXv0zMMdC3294pDOjh-Oq1&sz=w1280" },
+  { title:"Gaming Highlight 2", description:"Clean, bold layout.", image:"https://drive.google.com/thumbnail?id=1QMvIPtpzJ-N7GnYIc5RWCW0o2nkAqfp1&sz=w1280" },
+  { title:"Action Stream", description:"High-contrast clickbait style.", image:"https://drive.google.com/thumbnail?id=1sL4uLwkk12QxFZmUv7n2Yu0KMVnbfef9&sz=w1280" },
+  { title:"Update Reveal", description:"Update-themed promo design.", image:"https://drive.google.com/thumbnail?id=1TAwGjcjQ5-nmhTMa58bBrfrYTr-54lhJ&sz=w1280" }
+];
+let currentSlideIndex = 0;
+const imageElement = document.getElementById('portfolio-image');
+const titleElement = document.getElementById('portfolio-title');
+const descElement = document.getElementById('portfolio-description');
+const dotsContainer = document.getElementById('dot-navigation-container');
+function showSlide(index){
+  if(index<0||index>=portfolioData.length||!imageElement)return;
+  const data=portfolioData[index];
+  imageElement.classList.add('hidden');
+  titleElement.classList.add('hidden');
+  descElement.classList.add('hidden');
+  updateActiveDot(index);
+  setTimeout(()=>{
+    imageElement.src=data.image;
+    titleElement.textContent=data.title;
+    descElement.textContent=data.description;
+    imageElement.classList.remove('hidden');
+    setTimeout(()=>{
+      titleElement.classList.remove('hidden');
+      descElement.classList.remove('hidden');
+    },100);
+  },200);
+  currentSlideIndex=index;
+}
+function buildDots(){
+  dotsContainer.innerHTML='';
+  portfolioData.forEach((_,i)=>{
+    const dot=document.createElement('div');
+    dot.className='dot';
+    dot.onclick=()=>showSlide(i);
+    dotsContainer.appendChild(dot);
+  });
+}
+function updateActiveDot(i){
+  const all=dotsContainer.querySelectorAll('.dot');
+  all.forEach((d,idx)=>d.classList.toggle('active',idx===i));
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  buildDots();
+  showSlide(0);
+});
+</script>
 </body>
 </html>
